@@ -1,0 +1,632 @@
+[
+  {
+    "reportId": "RPT001",
+    "facultyId": "FAC001",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 1,
+      "studentId": "STU001"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-01T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT002",
+    "facultyId": "FAC002",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 2,
+      "studentId": "STU002"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-02T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT002.pdf"
+  },
+  {
+    "reportId": "RPT003",
+    "facultyId": "FAC003",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 3,
+      "studentId": "STU003"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-03T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT003.pdf"
+  },
+  {
+    "reportId": "RPT004",
+    "facultyId": "FAC004",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 4,
+      "studentId": "STU004"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-04T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT004.pdf"
+  },
+  {
+    "reportId": "RPT005",
+    "facultyId": "FAC005",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 5,
+      "studentId": "STU005"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-05T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT005.pdf"
+  },
+  {
+    "reportId": "RPT006",
+    "facultyId": "FAC006",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 6,
+      "studentId": "STU006"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-06T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT007",
+    "facultyId": "FAC007",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 7,
+      "studentId": "STU007"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-07T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT007.pdf"
+  },
+  {
+    "reportId": "RPT008",
+    "facultyId": "FAC008",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 8,
+      "studentId": "STU008"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-08T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT008.pdf"
+  },
+  {
+    "reportId": "RPT009",
+    "facultyId": "FAC009",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 1,
+      "studentId": "STU009"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-09T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT009.pdf"
+  },
+  {
+    "reportId": "RPT010",
+    "facultyId": "FAC010",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 2,
+      "studentId": "STU010"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-10T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT010.pdf"
+  },
+  {
+    "reportId": "RPT011",
+    "facultyId": "FAC011",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 3,
+      "studentId": "STU011"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-11T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT012",
+    "facultyId": "FAC012",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 4,
+      "studentId": "STU012"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-12T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT012.pdf"
+  },
+  {
+    "reportId": "RPT013",
+    "facultyId": "FAC013",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 5,
+      "studentId": "STU013"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-13T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT013.pdf"
+  },
+  {
+    "reportId": "RPT014",
+    "facultyId": "FAC014",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 6,
+      "studentId": "STU014"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-14T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT014.pdf"
+  },
+  {
+    "reportId": "RPT015",
+    "facultyId": "FAC015",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 7,
+      "studentId": "STU015"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-15T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT015.pdf"
+  },
+  {
+    "reportId": "RPT016",
+    "facultyId": "FAC016",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 8,
+      "studentId": "STU016"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-16T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT017",
+    "facultyId": "FAC017",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 1,
+      "studentId": "STU017"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-17T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT017.pdf"
+  },
+  {
+    "reportId": "RPT018",
+    "facultyId": "FAC018",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 2,
+      "studentId": "STU018"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-18T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT018.pdf"
+  },
+  {
+    "reportId": "RPT019",
+    "facultyId": "FAC019",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 3,
+      "studentId": "STU019"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-19T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT019.pdf"
+  },
+  {
+    "reportId": "RPT020",
+    "facultyId": "FAC020",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 4,
+      "studentId": "STU020"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-20T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT020.pdf"
+  },
+  {
+    "reportId": "RPT021",
+    "facultyId": "FAC021",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 5,
+      "studentId": "STU021"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-21T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT022",
+    "facultyId": "FAC022",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 6,
+      "studentId": "STU022"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-22T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT022.pdf"
+  },
+  {
+    "reportId": "RPT023",
+    "facultyId": "FAC023",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 7,
+      "studentId": "STU023"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-23T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT023.pdf"
+  },
+  {
+    "reportId": "RPT024",
+    "facultyId": "FAC024",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 8,
+      "studentId": "STU024"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-24T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT024.pdf"
+  },
+  {
+    "reportId": "RPT025",
+    "facultyId": "FAC025",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 1,
+      "studentId": "STU025"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-25T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT025.pdf"
+  },
+  {
+    "reportId": "RPT026",
+    "facultyId": "FAC026",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 2,
+      "studentId": "STU026"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-26T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT027",
+    "facultyId": "FAC027",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 3,
+      "studentId": "STU027"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-27T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT027.pdf"
+  },
+  {
+    "reportId": "RPT028",
+    "facultyId": "FAC028",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 4,
+      "studentId": "STU028"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-28T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT028.pdf"
+  },
+  {
+    "reportId": "RPT029",
+    "facultyId": "FAC029",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 5,
+      "studentId": "STU029"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-01T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT029.pdf"
+  },
+  {
+    "reportId": "RPT030",
+    "facultyId": "FAC030",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 6,
+      "studentId": "STU030"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-02T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT030.pdf"
+  },
+  {
+    "reportId": "RPT031",
+    "facultyId": "FAC001",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 7,
+      "studentId": "STU031"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-03T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT032",
+    "facultyId": "FAC002",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 8,
+      "studentId": "STU032"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-04T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT032.pdf"
+  },
+  {
+    "reportId": "RPT033",
+    "facultyId": "FAC003",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 1,
+      "studentId": "STU033"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-05T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT033.pdf"
+  },
+  {
+    "reportId": "RPT034",
+    "facultyId": "FAC004",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 2,
+      "studentId": "STU034"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-06T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT034.pdf"
+  },
+  {
+    "reportId": "RPT035",
+    "facultyId": "FAC005",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 3,
+      "studentId": "STU035"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-07T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT035.pdf"
+  },
+  {
+    "reportId": "RPT036",
+    "facultyId": "FAC006",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 4,
+      "studentId": "STU036"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-08T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT037",
+    "facultyId": "FAC007",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 5,
+      "studentId": "STU037"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-09T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT037.pdf"
+  },
+  {
+    "reportId": "RPT038",
+    "facultyId": "FAC008",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 6,
+      "studentId": "STU038"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-10T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT038.pdf"
+  },
+  {
+    "reportId": "RPT039",
+    "facultyId": "FAC009",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 7,
+      "studentId": "STU039"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-11T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT039.pdf"
+  },
+  {
+    "reportId": "RPT040",
+    "facultyId": "FAC010",
+    "type": "individual",
+    "filters": {
+      "department": "Mechanical",
+      "semester": 8,
+      "studentId": "STU040"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-12T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT040.pdf"
+  },
+  {
+    "reportId": "RPT041",
+    "facultyId": "FAC011",
+    "type": "department",
+    "filters": {
+      "department": "Civil",
+      "semester": 1,
+      "studentId": "STU041"
+    },
+    "format": "pdf",
+    "status": "processing",
+    "generatedAt": "2026-03-13T06:00:00.000Z",
+    "downloadUrl": null
+  },
+  {
+    "reportId": "RPT042",
+    "facultyId": "FAC012",
+    "type": "semester",
+    "filters": {
+      "department": "Electrical",
+      "semester": 2,
+      "studentId": "STU042"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-14T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT042.pdf"
+  },
+  {
+    "reportId": "RPT043",
+    "facultyId": "FAC013",
+    "type": "individual",
+    "filters": {
+      "department": "Computer Science",
+      "semester": 3,
+      "studentId": "STU043"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-15T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT043.pdf"
+  },
+  {
+    "reportId": "RPT044",
+    "facultyId": "FAC014",
+    "type": "department",
+    "filters": {
+      "department": "Information Technology",
+      "semester": 4,
+      "studentId": "STU044"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-16T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT044.pdf"
+  },
+  {
+    "reportId": "RPT045",
+    "facultyId": "FAC015",
+    "type": "semester",
+    "filters": {
+      "department": "Electronics",
+      "semester": 5,
+      "studentId": "STU045"
+    },
+    "format": "pdf",
+    "status": "completed",
+    "generatedAt": "2026-03-17T06:00:00.000Z",
+    "downloadUrl": "https://files.college.edu/reports/RPT045.pdf"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "faculties": 30,
+  "students": 60,
+  "attendance_records": 360,
+  "biometric_logs": 480,
+  "leave_requests": 90,
+  "academic_performance": 480,
+  "notifications": 180,
+  "low_attendance_cases": 40,
+  "report_requests": 45
+}
