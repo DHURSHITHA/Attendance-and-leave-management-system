@@ -19,6 +19,33 @@ function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function summarizeList(items, limit = 5) {
+  const shown = items.slice(0, limit);
+  if (items.length <= limit) return { items: shown, more: 0 };
+  return { items: shown, more: items.length - limit };
+}
+
+async function resolveDepartmentName(query) {
+  const normalized = String(query).toLowerCase();
+  const stored = await Department.find({ isActive: true }).lean();
+  const names = stored.length
+    ? stored.map((d) => d.name)
+    : Array.from(
+        new Set(
+          [
+            ...(await Student.find({}, { department: 1 }).lean()),
+            ...(await Faculty.find({}, { department: 1 }).lean()),
+          ]
+            .map((x) => x.department)
+            .filter(Boolean)
+        )
+      );
+  return names.find((name) => {
+    const n = String(name).toLowerCase();
+    return normalized.includes(n) || normalized.includes(n.replace(/\s+/g, ""));
+  });
+}
+
 async function logAction(action, targetType, targetId, details = "") {
   try {
     await ActivityLog.create({
@@ -685,5 +712,151 @@ router.get("/biometric-logs", async (req, res) => {
   }
 });
 
-export default router;
+router.post("/chatbot", async (req, res) => {
+  try {
+    const question = String(req.body.question || "").trim();
+    if (!question) return res.status(400).json({ message: "question is required" });
 
+    const q = question.toLowerCase();
+    const today = todayISO();
+
+    if (q.includes("help") || q.includes("example")) {
+      return res.json({
+        answer:
+          "Try: total students, faculty today present, students absent today, departments list, low attendance cases, leave requests pending, system settings, biometric device status.",
+      });
+    }
+
+    if (q.match(/(total|how many).*(student|students)/)) {
+      const count = await Student.countDocuments();
+      return res.json({ answer: `Total students: ${count}.` });
+    }
+
+    if (q.match(/(total|how many).*(faculty|faculties|staff)/)) {
+      const count = await Faculty.countDocuments();
+      return res.json({ answer: `Total faculty: ${count}.` });
+    }
+
+    if (q.match(/(total|how many).*(department|departments)/)) {
+      const count = await Department.countDocuments({ isActive: true });
+      const stored = await Department.find({ isActive: true }).sort({ name: 1 }).lean();
+      if (stored.length) {
+        return res.json({ answer: `Active departments: ${count}.`, items: stored.map((d) => d.name) });
+      }
+      return res.json({ answer: `Active departments: ${count}.` });
+    }
+
+    if (q.includes("departments list") || q.includes("list departments")) {
+      const stored = await Department.find({ isActive: true }).sort({ name: 1 }).lean();
+      return res.json({
+        answer: stored.length ? "Active departments:" : "No active departments found.",
+        items: stored.map((d) => d.name),
+      });
+    }
+
+    if (q.includes("leave request") || q.includes("leave requests")) {
+      const status = q.includes("pending") ? "pending" : q.includes("approved") ? "approved" : q.includes("rejected") ? "rejected" : null;
+      const filter = status ? { status } : {};
+      const count = await LeaveRequest.countDocuments(filter);
+      return res.json({
+        answer: status ? `Leave requests (${status}): ${count}.` : `Total leave requests: ${count}.`,
+      });
+    }
+
+    if (q.includes("faculty today") || (q.includes("today") && q.includes("faculty"))) {
+      const rows = await FacultyAttendance.find({ date: today }).lean();
+      const present = rows.filter((r) => r.status === "present").length;
+      const absent = rows.filter((r) => r.status === "absent").length;
+      const leave = rows.filter((r) => r.status === "leave").length;
+      return res.json({
+        answer: `Faculty attendance for ${today}: ${present} present, ${absent} absent, ${leave} on leave.`,
+      });
+    }
+
+    if (q.includes("today") && q.includes("student")) {
+      const rows = await AttendanceRecord.find({ date: today }).lean();
+      const present = rows.filter((r) => r.finalStatus === "present").length;
+      const absent = rows.filter((r) => r.finalStatus === "absent").length;
+      const leave = rows.filter((r) => r.finalStatus === "leave").length;
+      return res.json({
+        answer: `Student attendance for ${today}: ${present} present, ${absent} absent, ${leave} on leave.`,
+      });
+    }
+
+    if (q.includes("average attendance") || q.includes("avg attendance")) {
+      const rows = await AttendanceRecord.find().lean();
+      const avg = rows.length
+        ? Number(
+            (
+              (rows.filter((r) => r.finalStatus === "present").length +
+                rows.filter((r) => r.finalStatus === "half_day").length * 0.5) /
+              rows.length *
+              100
+            ).toFixed(2)
+          )
+        : 0;
+      return res.json({ answer: `Average attendance: ${avg}%.` });
+    }
+
+    if (q.includes("low attendance")) {
+      const rows = await LowAttendanceCase.find().sort({ attendancePercent: 1 }).limit(10).lean();
+      const list = rows.map((r) => `${r.studentName || r.studentId} (${r.attendancePercent}%)`);
+      const { items, more } = summarizeList(list, 5);
+      return res.json({
+        answer: rows.length ? "Lowest attendance cases:" : "No low attendance cases found.",
+        items,
+        more,
+      });
+    }
+
+    if (q.includes("biometric") || q.includes("device")) {
+      const settings = await BiometricSetting.findOne().lean();
+      if (!settings) return res.json({ answer: "Biometric settings not configured yet." });
+      return res.json({
+        answer: `Biometric device is ${settings.deviceStatus || "unknown"}. Windows: ${settings.morningStart}-${settings.morningEnd}, ${settings.afternoonStart}-${settings.afternoonEnd}.`,
+      });
+    }
+
+    if (q.includes("system setting") || q.includes("academic year") || q.includes("attendance rule")) {
+      const settings = await SystemSetting.findOne().lean();
+      if (!settings) return res.json({ answer: "System settings are not configured yet." });
+      return res.json({
+        answer: `Academic year ${settings.academicYear}. Minimum attendance ${settings.minimumAttendancePercent}%. Rule: ${settings.attendanceWindowRule}.`,
+      });
+    }
+
+    if (q.includes("activity log") || q.includes("recent actions")) {
+      const rows = await ActivityLog.find().sort({ at: -1, createdAt: -1 }).limit(6).lean();
+      const list = rows.map((r) => `${r.action} (${r.targetType} ${r.targetId})`);
+      return res.json({
+        answer: rows.length ? "Recent admin actions:" : "No recent activity found.",
+        items: list,
+      });
+    }
+
+    if (q.includes("students in") || q.includes("students of") || q.includes("students for")) {
+      const dept = await resolveDepartmentName(q);
+      if (dept) {
+        const count = await Student.countDocuments({ department: dept });
+        return res.json({ answer: `Students in ${dept}: ${count}.` });
+      }
+    }
+
+    if (q.includes("faculty in") || q.includes("faculty of")) {
+      const dept = await resolveDepartmentName(q);
+      if (dept) {
+        const count = await Faculty.countDocuments({ department: dept });
+        return res.json({ answer: `Faculty in ${dept}: ${count}.` });
+      }
+    }
+
+    return res.json({
+      answer:
+        "I can answer common admin questions about totals, attendance, departments, settings, and recent activity. Try: total students, students absent today, departments list, low attendance cases.",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to answer question", error: error.message });
+  }
+});
+
+export default router;

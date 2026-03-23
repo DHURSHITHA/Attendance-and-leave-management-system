@@ -25,6 +25,13 @@ import FacultyStudentManagementPage from "./pages/faculty/FacultyStudentManageme
 import FacultyNotificationsPage from "./pages/faculty/FacultyNotificationsPage";
 import AdminDashboardHome from "./pages/admin/AdminDashboardHome";
 import AdminModulePage from "./pages/admin/AdminModulePage";
+import ParentDashboardHome from "./pages/parent/ParentDashboardHome";
+import ParentAttendancePage from "./pages/parent/ParentAttendancePage";
+import ParentCalendarPage from "./pages/parent/ParentCalendarPage";
+import ParentMessagesPage from "./pages/parent/ParentMessagesPage";
+import ParentFeesPage from "./pages/parent/ParentFeesPage";
+import ParentNotificationsPage from "./pages/parent/ParentNotificationsPage";
+import ParentProfilePage from "./pages/parent/ParentProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -86,6 +93,18 @@ function App() {
             <Route path="/admin/notifications" element={<AdminModulePage section="notifications" />} />
             <Route path="/admin/system-settings" element={<AdminModulePage section="system-settings" />} />
             <Route path="/admin/activity-logs" element={<AdminModulePage section="activity-logs" />} />
+          </Route>
+        </Route>
+
+        <Route element={<RoleRoute allowedRole="parent" />}>
+          <Route element={<DashboardLayout role="parent" />}>
+            <Route path="/parent/dashboard" element={<ParentDashboardHome />} />
+            <Route path="/parent/attendance" element={<ParentAttendancePage />} />
+            <Route path="/parent/calendar" element={<ParentCalendarPage />} />
+            <Route path="/parent/messages" element={<ParentMessagesPage />} />
+            <Route path="/parent/fees" element={<ParentFeesPage />} />
+            <Route path="/parent/notifications" element={<ParentNotificationsPage />} />
+            <Route path="/parent/profile" element={<ParentProfilePage />} />
           </Route>
         </Route>
       </Route>

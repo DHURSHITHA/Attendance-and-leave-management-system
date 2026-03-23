@@ -43,8 +43,25 @@ const adminNav = [
   ["Activity Logs", "/admin/activity-logs"],
 ];
 
+const parentNav = [
+  ["Dashboard", "/parent/dashboard"],
+  ["Attendance", "/parent/attendance"],
+  ["Calendar", "/parent/calendar"],
+  ["Messages", "/parent/messages"],
+  ["Fees & Payments", "/parent/fees"],
+  ["Notifications", "/parent/notifications"],
+  ["Profile", "/parent/profile"],
+];
+
 export default function Sidebar({ role, open, onClose }) {
-  const links = role === "faculty" ? facultyNav : role === "admin" ? adminNav : studentNav;
+  const links =
+    role === "faculty"
+      ? facultyNav
+      : role === "admin"
+        ? adminNav
+        : role === "parent"
+          ? parentNav
+          : studentNav;
   const { logout } = useAuth();
   const navigate = useNavigate();
 

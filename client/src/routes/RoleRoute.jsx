@@ -14,6 +14,8 @@ export default function RoleRoute({ allowedRole }) {
         ? "/faculty/dashboard"
         : currentUser.role === "admin"
           ? "/admin/dashboard"
+          : currentUser.role === "parent"
+            ? "/parent/dashboard"
           : "/student/dashboard";
     return <Navigate to={redirect} replace />;
   }

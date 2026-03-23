@@ -205,6 +205,63 @@ router.get("/:facultyId/reports", async (req, res) => {
   }
 });
 
+router.get("/:facultyId/reports/:reportId/data", async (req, res) => {
+  try {
+    const { facultyId, reportId } = req.params;
+    const report = await ReportRequest.findOne({ reportId, facultyId }).lean();
+    if (!report) return res.status(404).json({ message: "Report not found" });
+
+    const faculty = await Faculty.findOne({ facultyId }).lean();
+    const students = await mentorStudents(facultyId);
+
+    let filtered = students;
+    const filters = report.filters || {};
+
+    if (report.type === "individual" && filters.studentId) {
+      filtered = students.filter((s) => s.studentId === filters.studentId);
+    }
+    if (report.type === "department") {
+      const dept = filters.department || faculty?.department;
+      if (dept) filtered = filtered.filter((s) => s.department === dept);
+    }
+    if (report.type === "semester") {
+      const sem = Number(filters.semester);
+      if (Number.isFinite(sem)) filtered = filtered.filter((s) => Number(s.semester) === sem);
+    }
+
+    const rows = await Promise.all(
+      filtered.map(async (s) => {
+        const records = await AttendanceRecord.find({ studentId: s.studentId }).lean();
+        const total = records.length;
+        const presentDays = records.filter((r) => r.finalStatus === "present").length;
+        const absentDays = records.filter((r) => r.finalStatus === "absent").length;
+        const attendancePercent = total ? Number(((presentDays / total) * 100).toFixed(2)) : 0;
+        return {
+          studentId: s.studentId,
+          name: s.name,
+          rollNumber: s.rollNumber,
+          phone: s.phone,
+          semester: s.semester,
+          attendancePercent,
+          presentDays,
+          absentDays,
+        };
+      })
+    );
+
+    res.json({
+      reportId,
+      facultyId,
+      facultyName: faculty?.name || null,
+      type: report.type,
+      generatedAt: report.generatedAt,
+      rows,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to load report data", error: error.message });
+  }
+});
+
 router.post("/:facultyId/reports", async (req, res) => {
   try {
     const count = await ReportRequest.countDocuments();

@@ -25,7 +25,9 @@ export default function LoginPage() {
         ? "/faculty/dashboard"
         : result.user.role === "admin"
           ? "/admin/dashboard"
-          : "/student/dashboard"
+          : result.user.role === "parent"
+            ? "/parent/dashboard"
+            : "/student/dashboard"
     );
   };
 
@@ -81,6 +83,7 @@ export default function LoginPage() {
           </button>
           <small>Use credentials from your MongoDB records.</small>
           <small>Admin demo: admin@attendx.com / admin123</small>
+          <small>Parent demo (UI only): parent@attendx.com / parent123</small>
           <div className="auth-links">
             <Link to="/forgot-password">Forgot Password</Link>
             <Link to="/register">Register</Link>

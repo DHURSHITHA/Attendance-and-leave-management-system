@@ -2,6 +2,22 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { authApi } from "../services/api";
 
 const AuthContext = createContext(null);
+const parentDemo = {
+  email: "parent@attendx.com",
+  password: "parent123",
+  user: {
+    id: "PAR001",
+    name: "Ravi Sharma",
+    email: "parent@attendx.com",
+    role: "parent",
+    mentorId: null,
+    department: "CSE",
+    phone: "+91-90012-3344",
+    photo: "https://i.pravatar.cc/100?img=12",
+    semester: 5,
+    section: "A",
+  },
+};
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -11,6 +27,16 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
+      if (
+        import.meta.env.DEV &&
+        email === parentDemo.email &&
+        password === parentDemo.password
+      ) {
+        localStorage.setItem("attendance_user", JSON.stringify(parentDemo.user));
+        setCurrentUser(parentDemo.user);
+        return { ok: true, user: parentDemo.user };
+      }
+
       const user = await authApi.login(email, password);
       localStorage.setItem("attendance_user", JSON.stringify(user));
       setCurrentUser(user);

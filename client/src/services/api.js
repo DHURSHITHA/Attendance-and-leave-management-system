@@ -63,6 +63,7 @@ export const facultyApi = {
     }),
   analytics: (facultyId) => request(`/faculty/${facultyId}/analytics`),
   reports: (facultyId) => request(`/faculty/${facultyId}/reports`),
+  reportData: (facultyId, reportId) => request(`/faculty/${facultyId}/reports/${reportId}/data`),
   createReport: (facultyId, payload) =>
     request(`/faculty/${facultyId}/reports`, { method: "POST", body: JSON.stringify(payload) }),
   addStudent: (facultyId, payload) =>
@@ -84,6 +85,8 @@ export const facultyApi = {
 
 export const adminApi = {
   dashboard: () => request("/admin/dashboard"),
+  chatbot: (question) =>
+    request("/admin/chatbot", { method: "POST", body: JSON.stringify({ question }) }),
   students: (params = {}) => {
     const qs = new URLSearchParams(params).toString();
     return request(`/admin/students${qs ? `?${qs}` : ""}`);
