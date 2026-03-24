@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Faculty } from "../models/Faculty.js";
+import { Parent } from "../models/Parent.js";
 import { Student } from "../models/Student.js";
 import { sanitizeUser, verifyUserPassword } from "../utils/auth.js";
 
@@ -29,6 +30,26 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    if (email === "parent@attendx.com" && password === "parent123") {
+      let parent = await Parent.findOne({ email }).lean();
+      if (!parent) {
+        const count = await Parent.countDocuments();
+        const parentId = `PAR${String(count + 1).padStart(3, "0")}`;
+        parent = await Parent.create({
+          parentId,
+          name: "Ravi Sharma",
+          email,
+          password,
+          role: "parent",
+          department: "CSE",
+          phone: "+91-90012-3344",
+          childId: "STU014",
+        });
+        parent = parent.toObject();
+      }
+      return res.json({ user: sanitizeUser(parent, "parent") });
+    }
+
     const student = await Student.findOne({ email }).lean();
     if (student && verifyUserPassword(student, password)) {
       return res.json({ user: sanitizeUser(student, "student") });
@@ -37,6 +58,11 @@ router.post("/login", async (req, res) => {
     const faculty = await Faculty.findOne({ email }).lean();
     if (faculty && verifyUserPassword(faculty, password)) {
       return res.json({ user: sanitizeUser(faculty, "faculty") });
+    }
+
+    const parent = await Parent.findOne({ email }).lean();
+    if (parent && verifyUserPassword(parent, password)) {
+      return res.json({ user: sanitizeUser(parent, "parent") });
     }
 
     return res.status(401).json({ message: "Invalid credentials" });

@@ -13,6 +13,20 @@ export function verifyUserPassword(user, password) {
 }
 
 export function sanitizeUser(user, role) {
+  if (role === "parent") {
+    return {
+      id: user.parentId || user.id || "PAR001",
+      name: user.name,
+      email: user.email,
+      role: "parent",
+      mentorId: null,
+      department: user.department || "CSE",
+      phone: user.phone || "",
+      photo: user.photo || "",
+      semester: user.semester || null,
+      section: user.section || null,
+    };
+  }
   return {
     id: role === "student" ? user.studentId : user.facultyId,
     name: user.name,
