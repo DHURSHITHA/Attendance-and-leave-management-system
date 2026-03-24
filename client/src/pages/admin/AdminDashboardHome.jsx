@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PageHeader from "../../components/common/PageHeader";
 import StatCard from "../../components/common/StatCard";
 import useAsyncData from "../../hooks/useAsyncData";
@@ -68,10 +69,38 @@ export default function AdminDashboardHome() {
 
   return (
     <div className="page-grid">
-      <PageHeader
-        title="Admin System Overview"
-        subtitle="Institution-wide attendance, operations and governance view"
-      />
+      <div className="dashboard-hero">
+        <div className="hero-panel">
+          <PageHeader
+            title="Admin System Overview"
+            subtitle="Institution-wide attendance, operations and governance view"
+          />
+          <div className="hero-actions">
+            <Link className="pill-btn" to="/admin/attendance-monitor">
+              Attendance Monitor
+            </Link>
+            <Link className="pill-btn ghost" to="/admin/reports">
+              Reports
+            </Link>
+            <Link className="pill-btn ghost" to="/admin/system-settings">
+              System Settings
+            </Link>
+          </div>
+        </div>
+        <div className="card metric-card">
+          <div className="metric-ring" style={{ "--progress": data.averageAttendancePercent }}>
+            <span>{data.averageAttendancePercent}%</span>
+          </div>
+          <div>
+            <h3>Average Attendance</h3>
+            <p className="muted">All departments, updated for today.</p>
+            <div className="pill-row">
+              <span className="pill">Students {data.today.studentPresent}</span>
+              <span className="pill">Faculty {data.today.facultyPresent}</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="cards-grid">
         {stats.map(([label, value]) => (
           <StatCard key={label} label={label} value={value} />
@@ -147,34 +176,45 @@ export default function AdminDashboardHome() {
         </div>
       )}
 
-      <div className="card">
-        <h3>Daily Attendance Trend</h3>
-        <div className="mini-chart">
-          {data.charts.dailyTrend.map((v) => (
-            <div key={v.date} style={{ height: `${v.percent}%` }} title={`${v.date}: ${v.percent}%`} />
-          ))}
+      <div className="section-grid">
+        <div className="card">
+          <h3>Daily Attendance Trend</h3>
+          <div className="mini-chart">
+            {data.charts.dailyTrend.map((v) => (
+              <div key={v.date} style={{ height: `${v.percent}%` }} title={`${v.date}: ${v.percent}%`} />
+            ))}
+          </div>
+        </div>
+        <div className="card">
+          <h3>Department-wise Attendance Comparison</h3>
+          <div className="bar-chart">
+            {data.charts.deptComparison.map((r) => (
+              <div key={r.department} className="bar-item">
+                <div className="bar" style={{ height: `${r.percent}%` }} />
+                <span>{r.department}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="card">
-        <h3>Department-wise Attendance Comparison</h3>
-        <div className="bar-chart">
-          {data.charts.deptComparison.map((r) => (
-            <div key={r.department} className="bar-item">
-              <div className="bar" style={{ height: `${r.percent}%` }} />
-              <span>{r.department}</span>
-            </div>
-          ))}
+      <div className="section-grid">
+        <div className="card">
+          <h3>Monthly Attendance Statistics</h3>
+          <ul className="simple-list">
+            {data.charts.monthlyStats.map((r) => (
+              <li key={r.month}>{`${r.month}: ${r.percent}%`}</li>
+            ))}
+          </ul>
         </div>
-      </div>
-
-      <div className="card">
-        <h3>Monthly Attendance Statistics</h3>
-        <ul className="simple-list">
-          {data.charts.monthlyStats.map((r) => (
-            <li key={r.month}>{`${r.month}: ${r.percent}%`}</li>
-          ))}
-        </ul>
+        <div className="card">
+          <h3>Operational Highlights</h3>
+          <ul className="simple-list">
+            <li>Automated biometric sync completed at 09:15.</li>
+            <li>5 leave requests pending approval.</li>
+            <li>2 departments need attendance backfill.</li>
+          </ul>
+        </div>
       </div>
     </div>
   );

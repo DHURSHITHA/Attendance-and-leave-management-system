@@ -1,4 +1,5 @@
-﻿import PageHeader from "../../components/common/PageHeader";
+﻿import { Link } from "react-router-dom";
+import PageHeader from "../../components/common/PageHeader";
 import StatCard from "../../components/common/StatCard";
 import ProgressBar from "../../components/common/ProgressBar";
 
@@ -27,10 +28,38 @@ export default function ParentDashboardHome() {
 
   return (
     <div className="page-grid">
-      <PageHeader
-        title="Parent Dashboard"
-        subtitle="Stay connected to your child's attendance, academics, and school updates"
-      />
+      <div className="dashboard-hero">
+        <div className="hero-panel">
+          <PageHeader
+            title="Parent Dashboard"
+            subtitle="Stay connected to your child's attendance, academics, and school updates"
+          />
+          <div className="hero-actions">
+            <Link className="pill-btn" to="/parent/attendance">
+              View Attendance
+            </Link>
+            <Link className="pill-btn ghost" to="/parent/messages">
+              Messages
+            </Link>
+            <Link className="pill-btn ghost" to="/parent/fees">
+              Fees & Payments
+            </Link>
+          </div>
+        </div>
+        <div className="card metric-card">
+          <div className="metric-ring" style={{ "--progress": 92 }}>
+            <span>92%</span>
+          </div>
+          <div>
+            <h3>Attendance Health</h3>
+            <p className="muted">Target is 90% with consistent weekly presence.</p>
+            <div className="pill-row">
+              <span className="pill">On Track</span>
+              <span className="pill">Next PTM Mar 25</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="cards-grid">
         <div className="card profile-card">
           <img src={child.photo} alt="child" />
@@ -46,37 +75,39 @@ export default function ParentDashboardHome() {
         <StatCard label="Next Fee Due" value="INR 4,500" hint="Due by April 5" />
       </div>
 
-      <div className="card">
-        <h3>Attendance Health</h3>
-        <ProgressBar value={92} />
-        <p className="muted">On track to maintain the minimum requirement this term.</p>
-      </div>
-
-      <div className="card">
-        <h3>Weekly Attendance Trend</h3>
-        <div className="mini-chart">
-          {trend.map((v, idx) => (
-            <div key={`${v}-${idx}`} style={{ height: `${v}%` }} title={`Week ${idx + 1}: ${v}%`} />
-          ))}
+      <div className="section-grid">
+        <div className="card">
+          <h3>Attendance Health</h3>
+          <ProgressBar value={92} />
+          <p className="muted">On track to maintain the minimum requirement this term.</p>
+        </div>
+        <div className="card">
+          <h3>Weekly Attendance Trend</h3>
+          <div className="mini-chart">
+            {trend.map((v, idx) => (
+              <div key={`${v}-${idx}`} style={{ height: `${v}%` }} title={`Week ${idx + 1}: ${v}%`} />
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="card">
-        <h3>Action Required</h3>
-        <ul className="simple-list">
-          {alerts.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="card">
-        <h3>Messages From School</h3>
-        <ul className="simple-list">
-          {messages.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+      <div className="section-grid">
+        <div className="card">
+          <h3>Action Required</h3>
+          <ul className="simple-list">
+            {alerts.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="card">
+          <h3>Messages From School</h3>
+          <ul className="simple-list">
+            {messages.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
