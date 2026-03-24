@@ -4,6 +4,7 @@ import StatCard from "../../components/common/StatCard";
 import { useAuth } from "../../auth/AuthContext";
 import useAsyncData from "../../hooks/useAsyncData";
 import { studentApi } from "../../services/api";
+import { getUserAvatar } from "../../utils/avatars";
 
 export default function StudentDashboardHome() {
   const { currentUser } = useAuth();
@@ -48,7 +49,7 @@ export default function StudentDashboardHome() {
       </div>
       <div className="cards-grid">
         <div className="card profile-card">
-          <img src={currentUser?.photo} alt="profile" />
+          <img src={getUserAvatar(currentUser)} alt="profile" />
           <h3>{data.profile?.name}</h3>
           <p>{data.profile?.department}</p>
           <span>{data.profile?.email}</span>

@@ -661,6 +661,18 @@ router.get("/system-settings", async (_req, res) => {
         academicYear: "2025-2026",
         semesterStructure: "8 semesters",
         attendanceWindowRule: "Biometric only within configured windows",
+        attendanceGraceMinutes: 10,
+        lateArrivalThresholdMinutes: 20,
+        maxLeaveDaysPerSemester: 6,
+        autoLowAttendanceAlertPercent: 75,
+        manualOverrideAllowed: true,
+        biometricRequired: true,
+        reportAutoEmail: false,
+        notificationChannel: "both",
+        timezone: "Asia/Calcutta",
+        dataRetentionDays: 365,
+        holidayCalendarUrl: "",
+        maxBackdateDays: 3,
       });
       settings = settings.toObject();
     }

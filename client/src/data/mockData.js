@@ -1,3 +1,5 @@
+import { roleAvatars } from "../utils/avatars";
+
 export const users = [
   {
     id: "fac-001",
@@ -7,7 +9,7 @@ export const users = [
     password: "password123",
     department: "Computer Science",
     phone: "+91-900000001",
-    photo: "https://i.pravatar.cc/100?img=48",
+    photo: roleAvatars.faculty,
   },
   {
     id: "stu-001",
@@ -18,7 +20,7 @@ export const users = [
     mentorId: "fac-001",
     department: "Computer Science",
     phone: "+91-900000101",
-    photo: "https://i.pravatar.cc/100?img=13",
+    photo: roleAvatars.student,
   },
   {
     id: "stu-002",
@@ -29,7 +31,7 @@ export const users = [
     mentorId: "fac-001",
     department: "Computer Science",
     phone: "+91-900000102",
-    photo: "https://i.pravatar.cc/100?img=32",
+    photo: roleAvatars.student,
   },
   {
     id: "stu-003",
@@ -40,7 +42,7 @@ export const users = [
     mentorId: "fac-002",
     department: "Information Technology",
     phone: "+91-900000103",
-    photo: "https://i.pravatar.cc/100?img=67",
+    photo: roleAvatars.student,
   },
 ];
 

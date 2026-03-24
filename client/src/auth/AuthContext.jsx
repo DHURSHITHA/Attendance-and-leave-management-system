@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { authApi } from "../services/api";
+import { getAvatarByRole } from "../utils/avatars";
 
 const AuthContext = createContext(null);
 const parentDemo = {
@@ -13,7 +14,7 @@ const parentDemo = {
     mentorId: null,
     department: "CSE",
     phone: "+91-90012-3344",
-    photo: "https://i.pravatar.cc/100?img=12",
+    photo: getAvatarByRole("parent"),
     semester: 5,
     section: "A",
   },

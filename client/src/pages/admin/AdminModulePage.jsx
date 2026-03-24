@@ -16,6 +16,7 @@ export default function AdminModulePage({ section }) {
   const [q, setQ] = useState("");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [status, setStatus] = useState("present");
+  const [selectedMentor, setSelectedMentor] = useState(null);
 
   const loader = useMemo(
     () => () => {
@@ -71,7 +72,7 @@ export default function AdminModulePage({ section }) {
           <input placeholder="Search by name/roll/department" value={q} onChange={(e) => setQ(e.target.value)} />
           <button onClick={refresh}>Search</button>
         </div>
-        <div className="card form-grid">
+        <div className="card form-grid form-stack">
           <input id="s-name" placeholder="Name" />
           <input id="s-email" placeholder="Email" />
           <input id="s-roll" placeholder="Roll Number" />
@@ -203,7 +204,7 @@ export default function AdminModulePage({ section }) {
             <thead><tr><th>Faculty</th><th>Name</th><th>Department</th><th>Mentee Count</th><th>Mentees</th></tr></thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.facultyId}>
+                <tr key={r.facultyId} className="clickable-row" onClick={() => setSelectedMentor(r)}>
                   <td>{r.facultyId}</td>
                   <td>{r.name}</td>
                   <td>{r.department}</td>
@@ -219,6 +220,54 @@ export default function AdminModulePage({ section }) {
             </tbody>
           </table>
         </div>
+        {selectedMentor && (
+          <div className="modal-overlay" onClick={() => setSelectedMentor(null)}>
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <div>
+                  <h3>Mentor Details</h3>
+                  <p className="muted">Students currently assigned to this mentor.</p>
+                </div>
+                <button type="button" className="modal-close" onClick={() => setSelectedMentor(null)}>
+                  ×
+                </button>
+              </div>
+              <div className="modal-meta">
+                <div>
+                  <span className="muted">Faculty ID</span>
+                  <strong>{selectedMentor.facultyId}</strong>
+                </div>
+                <div>
+                  <span className="muted">Faculty Name</span>
+                  <strong>{selectedMentor.name}</strong>
+                </div>
+                <div>
+                  <span className="muted">Department</span>
+                  <strong>{selectedMentor.department}</strong>
+                </div>
+                <div>
+                  <span className="muted">Mentee Count</span>
+                  <strong>{selectedMentor.menteeCount}</strong>
+                </div>
+              </div>
+              <div className="modal-list">
+                <div className="modal-list-head">
+                  <span>Student ID</span>
+                  <span>Student Name</span>
+                </div>
+                {(Array.isArray(selectedMentor.mentees) ? selectedMentor.mentees : []).map((m) => (
+                  <div className="modal-list-row" key={`${selectedMentor.facultyId}-${m.studentId}`}>
+                    <span>{m.studentId}</span>
+                    <span>{m.name || "-"}</span>
+                  </div>
+                ))}
+                {(!selectedMentor.mentees || selectedMentor.mentees.length === 0) && (
+                  <div className="modal-empty muted">No students assigned.</div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -533,13 +582,74 @@ export default function AdminModulePage({ section }) {
           <input id="sys-year" defaultValue={data.academicYear} placeholder="Academic Year" />
           <input id="sys-sem" defaultValue={data.semesterStructure} placeholder="Semester Structure" />
           <input id="sys-rule" defaultValue={data.attendanceWindowRule} placeholder="Attendance Rule" />
+          <input
+            id="sys-grace"
+            type="number"
+            defaultValue={data.attendanceGraceMinutes}
+            placeholder="Attendance Grace (minutes)"
+          />
+          <input
+            id="sys-late"
+            type="number"
+            defaultValue={data.lateArrivalThresholdMinutes}
+            placeholder="Late Arrival Threshold (minutes)"
+          />
+          <input
+            id="sys-leave"
+            type="number"
+            defaultValue={data.maxLeaveDaysPerSemester}
+            placeholder="Max Leave Days / Semester"
+          />
+          <input
+            id="sys-alert"
+            type="number"
+            defaultValue={data.autoLowAttendanceAlertPercent}
+            placeholder="Low Attendance Alert %"
+          />
+          <select id="sys-override" defaultValue={String(data.manualOverrideAllowed ?? true)}>
+            <option value="true">Allow Manual Override: Yes</option>
+            <option value="false">Allow Manual Override: No</option>
+          </select>
+          <select id="sys-biometric" defaultValue={String(data.biometricRequired ?? true)}>
+            <option value="true">Biometric Required: Yes</option>
+            <option value="false">Biometric Required: No</option>
+          </select>
+          <select id="sys-report-email" defaultValue={String(data.reportAutoEmail ?? false)}>
+            <option value="true">Auto Email Reports: Yes</option>
+            <option value="false">Auto Email Reports: No</option>
+          </select>
+          <select id="sys-channel" defaultValue={data.notificationChannel || "both"}>
+            <option value="email">Notification Channel: Email</option>
+            <option value="sms">Notification Channel: SMS</option>
+            <option value="both">Notification Channel: Both</option>
+          </select>
+          <input id="sys-timezone" defaultValue={data.timezone} placeholder="Time Zone (e.g. Asia/Calcutta)" />
+          <input id="sys-retention" type="number" defaultValue={data.dataRetentionDays} placeholder="Data Retention (days)" />
+          <input id="sys-holiday" defaultValue={data.holidayCalendarUrl} placeholder="Holiday Calendar URL" />
+          <input id="sys-backdate" type="number" defaultValue={data.maxBackdateDays} placeholder="Max Backdate Days" />
           <button
             onClick={async () => {
+              const readNumber = (id, fallback = 0) => {
+                const value = Number(document.getElementById(id).value);
+                return Number.isFinite(value) ? value : fallback;
+              };
               await adminApi.updateSystemSettings({
-                minimumAttendancePercent: Number(document.getElementById("sys-min").value),
+                minimumAttendancePercent: readNumber("sys-min", 75),
                 academicYear: document.getElementById("sys-year").value,
                 semesterStructure: document.getElementById("sys-sem").value,
                 attendanceWindowRule: document.getElementById("sys-rule").value,
+                attendanceGraceMinutes: readNumber("sys-grace", 10),
+                lateArrivalThresholdMinutes: readNumber("sys-late", 20),
+                maxLeaveDaysPerSemester: readNumber("sys-leave", 6),
+                autoLowAttendanceAlertPercent: readNumber("sys-alert", 75),
+                manualOverrideAllowed: document.getElementById("sys-override").value === "true",
+                biometricRequired: document.getElementById("sys-biometric").value === "true",
+                reportAutoEmail: document.getElementById("sys-report-email").value === "true",
+                notificationChannel: document.getElementById("sys-channel").value,
+                timezone: document.getElementById("sys-timezone").value,
+                dataRetentionDays: readNumber("sys-retention", 365),
+                holidayCalendarUrl: document.getElementById("sys-holiday").value,
+                maxBackdateDays: readNumber("sys-backdate", 3),
               });
               refresh();
             }}

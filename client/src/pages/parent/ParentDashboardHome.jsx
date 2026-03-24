@@ -2,6 +2,7 @@
 import PageHeader from "../../components/common/PageHeader";
 import StatCard from "../../components/common/StatCard";
 import ProgressBar from "../../components/common/ProgressBar";
+import { childAvatar } from "../../utils/avatars";
 
 const trend = [78, 84, 88, 91, 86, 93, 95];
 
@@ -11,7 +12,7 @@ export default function ParentDashboardHome() {
     classLabel: "CSE | Semester 5",
     roll: "STU014",
     mentor: "Dr. Priya Nair",
-    photo: "https://i.pravatar.cc/120?img=52",
+    photo: childAvatar,
   };
 
   const alerts = [

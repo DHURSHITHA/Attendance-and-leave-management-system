@@ -1,4 +1,5 @@
 import { useAuth } from "../../auth/AuthContext";
+import { getUserAvatar } from "../../utils/avatars";
 
 export default function Topbar({ onMenuClick }) {
   const { currentUser } = useAuth();
@@ -19,7 +20,7 @@ export default function Topbar({ onMenuClick }) {
       </button>
       <div className="topbar-title">{roleTitle[currentUser?.role] || "Dashboard"}</div>
       <div className="topbar-user">
-        <img src={currentUser?.photo} alt="user" />
+        <img src={getUserAvatar(currentUser)} alt="user" />
         <span>{currentUser?.name}</span>
       </div>
     </header>
