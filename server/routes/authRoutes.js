@@ -80,6 +80,12 @@ router.post("/register", async (req, res) => {
       const created = await Faculty.create({ ...req.body, facultyId, password: req.body.password, role: "faculty" });
       return res.status(201).json({ user: sanitizeUser(created.toObject(), "faculty") });
     }
+    if (role === "parent") {
+      const count = await Parent.countDocuments();
+      const parentId = `PAR${String(count + 1).padStart(3, "0")}`;
+      const created = await Parent.create({ ...req.body, parentId, password: req.body.password, role: "parent" });
+      return res.status(201).json({ user: sanitizeUser(created.toObject(), "parent") });
+    }
 
     const count = await Student.countDocuments();
     const studentId = `STU${String(count + 1).padStart(3, "0")}`;
